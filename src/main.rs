@@ -2,10 +2,6 @@
 //!
 //!
 
-#![allow(unreachable_code, dead_code)]
-
-use std::{fs::File, io::prelude::*};
-
 use notcurses::*;
 
 mod ray;
@@ -48,28 +44,28 @@ fn main() -> NResult<()> {
     Ok(())
 }
 
-fn fill_buffer(buffer: &mut Vec<u8>, w: u32, h: u32) {
+fn fill_buffer(buffer: &mut Vec<u8>, width: u32, height: u32) {
     let lower_left_corner = Vec3(-2., -1., -1.);
     let horizontal = Vec3(4., 0., 0.);
     let vertical = Vec3(0., 2., 0.);
     let origin = Vec3(0., 0., 0.);
 
-    for j in (0..h).rev() {
-        for i in 0..w {
-            let u = i as f32 / w as f32;
-            let v = j as f32 / h as f32;
+    for row in (0..height).rev() {
+        for col in 0..width {
+            let u = col as f32 / width as f32;
+            let v = row as f32 / height as f32;
             let direction = lower_left_corner + horizontal * u + vertical * v;
 
-            let r = Ray::new(&origin, &direction);
-            let c = color(&r);
+            let ray = Ray::new(&origin, &direction);
+            let color = color(&ray);
 
-            let ir = (255.99 * c.r()) as u8;
-            let ig = (255.99 * c.g()) as u8;
-            let ib = (255.99 * c.b()) as u8;
+            let red = (255.99 * color.r()) as u8;
+            let green = (255.99 * color.g()) as u8;
+            let blue = (255.99 * color.b()) as u8;
 
-            buffer.push(ir);
-            buffer.push(ig);
-            buffer.push(ib);
+            buffer.push(red);
+            buffer.push(green);
+            buffer.push(blue);
         }
     }
 }

@@ -1,5 +1,5 @@
-// Vec3 type
-//
+//! Vec3 type
+//!
 // - Operation overloading
 //   - Works:
 //      - Vec3+Vec3, Vec3-Vec3, Vec3*Vec3, Vec3/Vec3
@@ -11,6 +11,7 @@
 use std::fmt;
 use std::ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Neg, Sub, SubAssign};
 
+///
 #[derive(Debug, Copy, Clone)]
 pub struct Vec3(pub f32, pub f32, pub f32);
 
@@ -21,63 +22,84 @@ impl fmt::Display for Vec3 {
     }
 }
 
-impl Vec3 {
-    pub fn new() -> Vec3 {
+impl Default for Vec3 {
+    fn default() -> Self {
         Vec3(0., 0., 0.)
     }
+}
 
-    // NOTE: can't be const with sqrt
-    // https://github.com/rust-lang/rust/issues/57563
+impl Vec3 {
+    ///
+    pub fn new() -> Vec3 {
+        Vec3::default()
+    }
+
+    ///
     #[inline]
     pub fn length(&self) -> f32 {
         self.squared_length().sqrt()
     }
+
+    ///
     #[inline]
     pub fn squared_length(&self) -> f32 {
         self.0 * self.0 + self.1 * self.1 + self.2 * self.2
     }
+
+    ///
     pub fn unit_vector(&self) -> Vec3 {
         self / self.length()
     }
 
+    ///
     #[inline]
     pub const fn x(&self) -> f32 {
         self.0
     }
+
+    ///
     #[inline]
     pub const fn y(&self) -> f32 {
         self.1
     }
+
+    ///
     #[inline]
     pub const fn z(&self) -> f32 {
         self.2
     }
 
+    ///
     #[inline]
     pub const fn r(&self) -> f32 {
         self.0
     }
+
+    ///
     #[inline]
     pub const fn g(&self) -> f32 {
         self.1
     }
+
+    ///
     #[inline]
     pub const fn b(&self) -> f32 {
         self.2
     }
 
+    ///
     #[inline]
     pub fn scale(&self, float: f32) -> Vec3 {
         Vec3(self.0 * float, self.1 * float, self.2 * float)
     }
 
-    // Inner product
+    /// Inner product.
     #[inline]
     pub fn dot(&self, rhs: &Vec3) -> f32 {
         self.0 * rhs.0 + self.1 * rhs.1 + self.2 * rhs.2
     }
 
-    // Cross product
+    /// Cross product.
     #[inline]
     pub fn cross(&self, rhs: &Vec3) -> Vec3 {
         Vec3(
