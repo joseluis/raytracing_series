@@ -1,16 +1,8 @@
 //!
-//!
-//!
 
 use notcurses::*;
 
-mod ray;
-mod render;
-mod vec3;
-
-use ray::Ray;
-use render::color;
-use vec3::Vec3;
+use raytracing_series::{color, Ray, Vec3};
 
 const WIDTH: u32 = 100;
 const HEIGHT: u32 = 50;

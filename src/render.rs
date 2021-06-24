@@ -1,5 +1,4 @@
-use crate::ray::Ray;
-use crate::vec3::Vec3;
+use crate::{Ray, Vec3};
 
 ///
 pub fn hit_sphere(center: &Vec3, radius: f32, ray: &Ray) -> f32 {

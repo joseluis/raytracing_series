@@ -1,5 +1,5 @@
 [package]
-name = "raytracing-1weekend"
+name = "raytracing_series"
 version = "0.1.0"
 authors = ["joseLuís <joseluis@andamira.net>"]
 edition = "2018"
